@@ -616,7 +616,125 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * 11. Ano no rodapé
+   * 11. ANTES E DEPOIS DE CLIENTE (molde templates/componentes/antes-depois.html):
+   *     o range invisível manda o --p do quadro. A seta do teclado anda 5%
+   *     (o step 0.1 sozinho não movia nada). Na primeira vez que aparece, a
+   *     cortina anda sozinha e volta, senão parece foto parada.
+   * ------------------------------------------------------------------ */
+  {
+    document.querySelectorAll("[data-ad]").forEach((ad) => {
+      const quadro = ad.querySelector(".ad__quadro");
+      const range = ad.querySelector(".ad__range");
+      const selA = ad.querySelector("[data-selo-a]");
+      const selD = ad.querySelector("[data-selo-d]");
+      if (!quadro || !range) return;
+
+      const pinta = (v) => {
+        quadro.style.setProperty("--p", v + "%");
+        // os selos apagam quando a cortina chega neles
+        if (selA) selA.style.opacity = v < 18 ? 0 : 1;
+        if (selD) selD.style.opacity = v > 82 ? 0 : 1;
+      };
+      range.addEventListener("input", () => pinta(range.value));
+      range.addEventListener("keydown", (e) => {
+        const passo = e.key === "ArrowRight" || e.key === "ArrowUp" ? 5 : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -5 : 0;
+        if (!passo) return;
+        e.preventDefault();
+        range.value = Math.max(0, Math.min(100, parseFloat(range.value) + passo));
+        pinta(range.value);
+      });
+      pinta(range.value);
+
+      if (reduzido || !("IntersectionObserver" in window)) return;
+      const io = new IntersectionObserver((entradas) => {
+        if (!entradas.some((en) => en.isIntersecting)) return;
+        io.disconnect();
+        let ini = null;
+        const DUR = 1500;
+        const passo = (t) => {
+          if (ini === null) ini = t;
+          const p = Math.min((t - ini) / DUR, 1);
+          // vai até 66, volta até 34 e assenta em 50
+          const v = 50 + Math.sin(p * Math.PI * 2) * 16 * (1 - p);
+          range.value = p < 1 ? v : 50;
+          pinta(range.value);
+          if (p < 1) requestAnimationFrame(passo);
+        };
+        requestAnimationFrame(passo);
+      }, { threshold: 0.45 });
+      io.observe(quadro);
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 12. VÍDEOS DE LEVEZA: sem som e em loop, tocam só enquanto aparecem na
+   *     tela e param ao sair. O botão pausa e retoma; pausado pelo botão,
+   *     não volta a tocar sozinho. Com "reduzir movimento" ficam na capa.
+   *     Se o celular bloquear o autoplay (modo economia), o play recusa em
+   *     silêncio e fica a capa com o botão de tocar.
+   * ------------------------------------------------------------------ */
+  {
+    document.querySelectorAll("[data-reel]").forEach((reel) => {
+      const video = reel.querySelector("video");
+      const botao = reel.querySelector("[data-reel-botao]");
+      if (!video || !botao) return;
+      video.muted = true;
+      let pausadoAMao = reduzido;
+      let naTela = false;
+      const tocar = () => { const p = video.play(); if (p) p.catch(() => {}); };
+      const marcar = () => {
+        const tocando = !video.paused;
+        reel.classList.toggle("tocando", tocando);
+        botao.setAttribute("aria-label", tocando ? "Pausar o vídeo" : "Tocar o vídeo");
+      };
+      video.addEventListener("play", marcar);
+      video.addEventListener("pause", marcar);
+      botao.addEventListener("click", () => {
+        if (video.paused) { pausadoAMao = false; tocar(); }
+        else { pausadoAMao = true; video.pause(); }
+      });
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver((entradas) => {
+          entradas.forEach((en) => {
+            naTela = en.isIntersecting;
+            if (naTela && !pausadoAMao) tocar();
+            else if (!naTela && !video.paused) video.pause();
+          });
+        }, { threshold: 0.35 }).observe(video);
+      }
+      marcar();
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 13. LEQUE DO INSTAGRAM: os cards saem empilhados no centro e abrem
+   *     quando a seção entra na tela. Sem JS, sem observador ou com
+   *     "reduzir movimento", já nascem abertos.
+   * ------------------------------------------------------------------ */
+  {
+    const leque = document.querySelector("[data-leque]");
+    if (leque && "IntersectionObserver" in window && !reduzido) {
+      leque.querySelectorAll(".insta__item").forEach((card, i) => {
+        card.classList.add("insta__item--entrando");
+        card.style.transitionDelay = (i * 100) + "ms";
+      });
+      const io = new IntersectionObserver((entradas) => {
+        if (!entradas.some((en) => en.isIntersecting)) return;
+        leque.classList.add("insta__leque--visivel");
+        io.disconnect();
+        // depois de abrir, a classe de entrada sai: a regra dela vem depois da do
+        // hover no CSS e ganharia dele, e o card não levantaria mais (é assim na Realce)
+        setTimeout(() => leque.querySelectorAll(".insta__item").forEach((c) => {
+          c.classList.remove("insta__item--entrando");
+          c.style.transitionDelay = "";
+        }), 1700);
+      }, { threshold: 0.3 });
+      io.observe(leque);
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 14. Ano no rodapé
    * ------------------------------------------------------------------ */
   {
     const ano = document.querySelector("[data-ano]");

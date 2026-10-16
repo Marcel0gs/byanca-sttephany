@@ -85,6 +85,7 @@ button, input { font: inherit; color: inherit; }
 .btn .ico { color: var(--rosa); }
 .btn--vazado { background: rgba(255, 255, 255, .5); color: var(--cafe); border-color: var(--linha-forte); box-shadow: none; backdrop-filter: blur(6px); }
 .btn--vazado:hover, .btn--vazado:focus-visible { background: var(--branco); box-shadow: 0 0 0 3px rgba(244, 207, 217, .55); }
+.btn--vazado .ico { color: var(--malva); }
 .btn--claro { background: var(--rosa-ouro); border-color: var(--rosa-ouro); color: var(--cafe); box-shadow: 0 14px 34px -12px rgba(233, 179, 156, .55); }
 .btn--claro .ico { color: var(--cafe); }
 .btn--claro:hover, .btn--claro:focus-visible { border-color: #FFE3D6; box-shadow: 0 18px 40px -12px rgba(233, 179, 156, .7), 0 0 0 3px rgba(233, 179, 156, .3); }
@@ -319,6 +320,18 @@ main { overflow-x: clip; }
 .servico--destaque p { color: #D9C9C4; }
 .servico--destaque .servico__link { color: var(--rosa); }
 .servico--destaque .servico__num { color: var(--rosa-ouro); }
+/* foto no topo do card, sangrando até a borda; o número vira selo em cima dela e
+   o ícone fica metade na foto, metade no card (a borda branca recorta) */
+.servico { overflow: hidden; }
+.servico__foto { margin: -1.8rem -1.6rem 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--fundo-2); }
+.servico__foto img { width: 100%; height: 100%; object-fit: cover; transition: scale .7s cubic-bezier(.2, .8, .2, 1); }
+.servico:hover .servico__foto img { scale: 1.05; }
+.servico__num { position: absolute; top: 1rem; left: 1.1rem; z-index: 1; padding: .1rem .7rem; border-radius: 999px; background: rgba(255, 255, 255, .9); line-height: 1.6; }
+.servico__ico { position: relative; z-index: 1; width: 60px; height: 60px; margin-top: calc(-30px - .8rem); border: 4px solid var(--branco); }
+.servico--destaque .servico__num { background: rgba(30, 19, 16, .78); }
+.servico--destaque .servico__ico { background: #47302B; border-color: var(--cafe); }
+.servicos__nota { margin-top: 1.6rem; text-align: center; font-size: .82rem; color: var(--texto-3); }
+.servicos__nota a { color: var(--malva-esc); font-weight: 600; }
 
 /* ------------------------------ selagem (prancha) ------------------------------ */
 .selagem__wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
@@ -374,6 +387,64 @@ main { overflow-x: clip; }
 .prancha__selo--d { top: 14px; }
 .prancha__selo--a { bottom: 14px; }
 .prancha__etq { position: absolute; right: 14px; top: 14px; z-index: 2; padding: .25rem .65rem; border-radius: 999px; background: rgba(255, 255, 255, .75); font-size: .64rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--texto-2); }
+
+/* ------------------------------ resultados ------------------------------
+   O quadro do antes e depois (2:3) e os dois vídeos (9:16) ficam da mesma
+   altura: 1.185fr é 16/9 dividido por 3/2. Molde do quadro em
+   templates/componentes/antes-depois.html.
+   O antes e depois fica no MEIO (pedido dele, 16/10/2026), mas continua primeiro
+   no HTML: a coluna 2 vem do CSS e os vídeos caem sozinhos na 1 e na 3. Assim o
+   celular, que põe o quadro em cima e os vídeos embaixo, não precisa de order. */
+.resultados { background-color: var(--fundo-2); }
+.resultados__grade {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.185fr) minmax(0, 1fr);
+  gap: clamp(1rem, 2.2vw, 1.6rem); max-width: 1000px; margin-inline: auto; align-items: start;
+}
+.resultados__grade .ad { grid-column: 2; grid-row: 1; }
+.resultados__legenda { margin-top: .8rem; text-align: center; font-family: var(--serif); font-style: italic; font-size: 1.02rem; color: var(--malva-esc); }
+.resultados__aviso { margin-top: 1.8rem; text-align: center; font-size: .8rem; color: var(--texto-3); }
+
+.ad { margin: 0; }
+.ad__quadro { --p: 50%; position: relative; overflow: hidden; border-radius: 26px; aspect-ratio: 2 / 3; background: #CDBFBA; contain: paint; box-shadow: var(--sombra); }
+.ad__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+/* a camada de cima é cortada pela direita: inset() mede o quanto se esconde */
+.ad__corte { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--p)) 0 0); }
+.ad__linha { position: absolute; top: 0; bottom: 0; left: var(--p); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(43, 29, 26, .18); pointer-events: none; }
+.ad__alca {
+  position: absolute; top: 50%; left: 50%; translate: -50% -50%; display: grid; place-items: center;
+  width: 46px; height: 46px; border-radius: 50%; background: #fff; color: var(--cafe);
+  box-shadow: 0 6px 16px rgba(43, 29, 26, .3); transition: scale .18s ease, box-shadow .18s ease;
+}
+.ad__alca svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ad__selo {
+  position: absolute; top: .8rem; z-index: 1; padding: .3rem .75rem; border-radius: 999px;
+  background: rgba(43, 29, 26, .74); color: #fff; font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  pointer-events: none; transition: opacity .2s ease;
+}
+.ad__selo--a { left: .8rem; }
+.ad__selo--d { right: .8rem; }
+/* o controle: um range de verdade, invisível, cobrindo o quadro. pan-y deixa o
+   dedo rolar a página na vertical e mexer a cortina na horizontal */
+.ad__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none; background: transparent; touch-action: pan-y; }
+.ad__range::-webkit-slider-thumb { -webkit-appearance: none; width: 56px; height: 100%; }
+.ad__range::-moz-range-thumb { width: 56px; height: 100%; border: 0; opacity: 0; }
+.ad__quadro:hover .ad__alca { scale: 1.06; }
+.ad__range:active + .ad__linha .ad__alca { scale: 1.12; }
+.ad__range:focus-visible + .ad__linha .ad__alca { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--malva); }
+
+.reel { margin: 0; }
+.reel__quadro { position: relative; overflow: hidden; border-radius: 26px; aspect-ratio: 9 / 16; background: var(--cafe); box-shadow: var(--sombra); }
+.reel__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.reel__selo { left: .8rem; }
+.reel__botao {
+  position: absolute; right: .8rem; bottom: .8rem; z-index: 1; display: grid; place-items: center;
+  width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(255, 255, 255, .9); color: var(--cafe); box-shadow: 0 6px 16px rgba(43, 29, 26, .28); transition: scale .2s ease;
+}
+.reel__botao:hover { scale: 1.08; }
+.reel__botao .ico { width: 18px; height: 18px; fill: currentColor; stroke: none; }
+.reel__pausa, .reel.tocando .reel__play { display: none; }
+.reel.tocando .reel__pausa { display: block; }
 
 /* ------------------------------ terapia capilar ------------------------------ */
 .terapia { background-color: var(--escuro); color: var(--claro-esc); overflow: hidden; }
@@ -480,6 +551,37 @@ main { overflow-x: clip; }
 .conversa__quem { margin-top: .75rem; font-size: .78rem; font-weight: 600; color: var(--texto-2); }
 .fb-dica { display: none; }
 @keyframes empurra { 50% { translate: 5px 0; } }
+
+/* ------------------------------ instagram (leque) ------------------------------
+   Mesmo componente do Caldas Coelho, Rancho Canaã, GeP e Realce. --passo (a
+   distância entre os cards), --card (largura de referência) e --dyf (escala do
+   desnível) governam o leque inteiro. O brilho rosa some nas bordas pra emendar
+   com a história, que vem embaixo no mesmo creme. */
+.insta { overflow: hidden; background-image: radial-gradient(60% 50% at 50% 64%, #FBE3EB 0%, rgba(251, 227, 235, 0) 100%); }
+.insta__leque { --passo: 140px; --card: 190px; --dyf: 1px; position: relative; z-index: 1; height: 330px; margin: 0 0 1rem; }
+.insta__item {
+  --x: calc(var(--i) * var(--passo));
+  --y: calc(var(--dy) * var(--dyf));
+  display: block; position: absolute; top: 50%; left: 50%;
+  width: calc(var(--card) * var(--n)); aspect-ratio: 3 / 4; overflow: hidden;
+  border: 4px solid #fff; border-radius: 18px; background: #fff;
+  box-shadow: 0 14px 30px rgba(43, 29, 26, .24);
+  transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r));
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease;
+}
+.insta__item:hover, .insta__item:focus-visible {
+  transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y) - 12px)) rotate(0deg) scale(1.06);
+  box-shadow: 0 20px 42px rgba(43, 29, 26, .32); z-index: 50 !important;
+}
+.insta__item img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+.insta__item--entrando {
+  transform: translate(-50%, -50%) rotate(0deg) scale(.84); opacity: 0;
+  transition: transform .9s cubic-bezier(.16, 1, .3, 1), opacity .6s ease;
+}
+.insta__leque--visivel .insta__item--entrando {
+  transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r)) scale(1); opacity: 1;
+}
+.insta__cta { position: relative; z-index: 1; display: flex; justify-content: center; margin-top: 1.4rem; }
 
 /* ------------------------------ história ------------------------------ */
 .historia__wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
@@ -642,8 +744,33 @@ main { overflow-x: clip; }
   .grupo__opcoes button { padding: .45rem .85rem; font-size: .86rem; }
 }
 
+/* resultados e leque: abaixo de 1040 px o leque fica com cinco; no celular o
+   antes e depois ocupa a largura e os dois vídeos vão lado a lado embaixo */
+@media (max-width: 1040px) {
+  .insta__item--ponta { display: none; }
+}
+@media (max-width: 760px) {
+  .resultados__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 480px; }
+  .resultados__grade .ad { grid-column: 1 / -1; grid-row: auto; }
+  .resultados__legenda { font-size: .95rem; }
+  .reel__quadro { border-radius: 20px; }
+  /* passo grande demais empurra os das pontas pra fora: conferir 360 px depois de mexer */
+  .insta__leque { --passo: 70px; --card: 138px; --dyf: .5px; height: 250px; margin-bottom: .5rem; }
+  .insta__item { border-width: 3px; border-radius: 13px; box-shadow: 0 8px 20px rgba(43, 29, 26, .22); }
+  .insta__item img { border-radius: 10px; }
+  /* sem hover em toque: levantar card com o dedo em cima não acontece */
+  .insta__item:hover {
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r));
+    box-shadow: 0 8px 20px rgba(43, 29, 26, .22);
+  }
+}
+@media (max-width: 400px) {
+  .insta__leque { --passo: 62px; --card: 122px; height: 225px; }
+}
+
 /* ------------------------------ reduzir movimento ------------------------------ */
 @media (prefers-reduced-motion: reduce) {
+  .servico__foto img { transition: none; }
   html { scroll-behavior: auto; }
   .js .abertura { display: none; }
   .js .hero__texto > *, .js .hero__msg, .hero__fundo img, .hero__rolar::after { animation: none; }

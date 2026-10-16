@@ -75,6 +75,8 @@
     <symbol id="i-calendar-heart" viewBox="0 0 24 24"><path d="M12.127 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v5.125" /><path d="M14.62 17.8A2.25 2.25 0 1118 14.836a2.25 2.25 0 113.38 2.966l-2.626 2.856a.998.998 0 01-1.507 0z" /><path d="M16 2v3" /><path d="M3 9h18" /><path d="M8 2v3" /></symbol>
     <symbol id="i-zap" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1s-.8 1-.9 1.2c-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></symbol>
     <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></symbol>
   </defs>
 </svg>
 
@@ -110,6 +112,7 @@
     <nav class="menu" aria-label="Principal">
       <a href="#servicos">Serviços</a>
       <a href="#selagem">Selagem</a>
+      <a href="#resultados">Resultados</a>
       <a href="#terapia">Terapia capilar</a>
       <a href="#feedbacks">Feedbacks</a>
     </nav>
@@ -217,8 +220,13 @@
       <p class="kicker">O que eu faço</p>
       <h2 id="servicos-titulo">Cada cabelo pede <span class="script">um cuidado.</span></h2>
     </header>
+    <!-- As fotos dos cards são de banco de imagem (Unsplash, licença livre),
+         pedido do Marcelo em 16/10/2026: ilustram o serviço e NÃO são clientes
+         dela. Por isso a nota "Fotos ilustrativas" embaixo da grade, que manda
+         pros resultados de verdade. Fontes em Fotos e Imagens/unsplash/FONTES.md -->
     <div class="servicos__grade">
       <article class="servico">
+        <div class="servico__foto"><img src="assets/img/servico-escova-480.webp" srcset="assets/img/servico-escova-480.webp 480w, assets/img/servico-escova-800.webp 800w" sizes="(max-width: 560px) 92vw, (max-width: 1080px) 46vw, 290px" width="480" height="360" loading="lazy" decoding="async" alt="Prancha alisando uma mecha de cabelo escuro"></div>
         <span class="servico__num">01</span>
         <span class="servico__ico"><svg class="ico"><use href="#i-wind"/></svg></span>
         <h3>Escova e prancha</h3>
@@ -226,6 +234,7 @@
         <a class="servico__link" href="#agendar" data-servico="escova">Quero essa <svg class="ico"><use href="#i-arrow-right"/></svg></a>
       </article>
       <article class="servico servico--destaque">
+        <div class="servico__foto"><img src="assets/img/servico-selagem-480.webp" srcset="assets/img/servico-selagem-480.webp 480w, assets/img/servico-selagem-800.webp 800w" sizes="(max-width: 560px) 92vw, (max-width: 1080px) 46vw, 290px" width="480" height="360" loading="lazy" decoding="async" alt="Mulher com o cabelo comprido, liso e solto balançando ao vento"></div>
         <span class="servico__num">02</span>
         <span class="servico__ico"><svg class="ico"><use href="#i-leaf"/></svg></span>
         <h3>Selagem sem formol</h3>
@@ -233,6 +242,7 @@
         <a class="servico__link" href="#selagem">Ver na prática <svg class="ico"><use href="#i-arrow-down"/></svg></a>
       </article>
       <article class="servico">
+        <div class="servico__foto"><img src="assets/img/servico-terapia-480.webp" srcset="assets/img/servico-terapia-480.webp 480w, assets/img/servico-terapia-800.webp 800w" sizes="(max-width: 560px) 92vw, (max-width: 1080px) 46vw, 290px" width="480" height="360" loading="lazy" decoding="async" alt="Cliente deitada no lavatório enquanto um produto é aplicado na raiz do cabelo"></div>
         <span class="servico__num">03</span>
         <span class="servico__ico"><svg class="ico"><use href="#i-sparkles"/></svg></span>
         <h3>Terapia capilar</h3>
@@ -240,6 +250,7 @@
         <a class="servico__link" href="#terapia">Entender a terapia <svg class="ico"><use href="#i-arrow-down"/></svg></a>
       </article>
       <article class="servico">
+        <div class="servico__foto"><img src="assets/img/servico-hidratacao-480.webp" srcset="assets/img/servico-hidratacao-480.webp 480w, assets/img/servico-hidratacao-800.webp 800w" sizes="(max-width: 560px) 92vw, (max-width: 1080px) 46vw, 290px" width="480" height="360" loading="lazy" decoding="async" alt="Mão passando um pente de madeira num cabelo comprido e macio"></div>
         <span class="servico__num">04</span>
         <span class="servico__ico"><svg class="ico"><use href="#i-droplets"/></svg></span>
         <h3>Hidratação e cronograma</h3>
@@ -247,6 +258,7 @@
         <a class="servico__link" href="#agendar" data-servico="tratamento">Quero esse <svg class="ico"><use href="#i-arrow-right"/></svg></a>
       </article>
     </div>
+    <p class="servicos__nota">Fotos ilustrativas. Os cabelos das minhas clientes estão <a href="#resultados">nos resultados</a>.</p>
   </div>
 </section>
 
@@ -284,6 +296,70 @@
         <span class="prancha__alca"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6-5 6 5M6 15l6 5 6-5"/></svg></span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============================ RESULTADOS: antes e depois e vídeos ============================
+     Tudo aqui é de cliente dela, tirado do perfil (16/10/2026). O par é do reel
+     "Talvez você precise de mim" e segue o molde templates/componentes/antes-depois.html:
+     um range invisível por cima do quadro (dedo, mouse e teclado), a foto de BAIXO é
+     a de depois. Alinhado pela cabeça no preparar-resultados.js; as figurinhas do reel
+     saíram, todas estavam na parede, e o cabelo não foi retocado.
+     Os dois vídeos são reels de cliente balançando o cabelo: sem som, tocam só
+     enquanto aparecem na tela e têm botão de pausa. Com "reduzir movimento" ficam na
+     capa até alguém apertar o play. A frase "Resultados variam" fica (regra do molde). -->
+<section class="resultados secao" id="resultados" aria-labelledby="resultados-titulo">
+  <div class="wrap">
+    <header class="cabeca">
+      <p class="kicker">Resultados de clientes</p>
+      <h2 id="resultados-titulo">Cabelo de cliente, <span class="script">de verdade.</span></h2>
+      <p class="cabeca__sub">Arraste a linha pra ver o antes e o depois. Nos vídeos, o cabelo de duas clientes depois do atendimento: leve, solto e com movimento.</p>
+    </header>
+
+    <div class="resultados__grade">
+      <figure class="ad" data-ad>
+        <div class="ad__quadro">
+          <img class="ad__img" src="assets/img/ad-depois.webp" width="640" height="960" loading="lazy" decoding="async" alt="Depois: o mesmo cabelo seco, alinhado, com brilho e as pontas onduladas">
+          <div class="ad__corte">
+            <img class="ad__img" src="assets/img/ad-antes.webp" width="640" height="960" loading="lazy" decoding="async" alt="Antes: cabelo molhado, com frizz na raiz e as pontas finas e ralas">
+          </div>
+          <span class="ad__selo ad__selo--d" data-selo-d>Depois</span>
+          <span class="ad__selo ad__selo--a" data-selo-a>Antes</span>
+          <!-- o range vem ANTES da linha: é o "+" do CSS que acende a alça no foco do teclado -->
+          <input class="ad__range" type="range" min="0" max="100" step="0.1" value="50" aria-label="Comparar o antes e o depois: arraste, ou use as setas do teclado">
+          <div class="ad__linha" aria-hidden="true">
+            <span class="ad__alca"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></span>
+          </div>
+        </div>
+        <figcaption class="resultados__legenda">Antes e depois de uma cliente</figcaption>
+      </figure>
+
+      <figure class="reel" data-reel>
+        <div class="reel__quadro">
+          <video class="reel__video" src="assets/video/leveza-1.mp4" poster="assets/img/leveza-1.webp" width="540" height="960" muted loop playsinline preload="none" aria-label="Vídeo: cliente de costas balançando o cabelo escuro, liso e solto"></video>
+          <span class="ad__selo reel__selo">Vídeo</span>
+          <button class="reel__botao" type="button" aria-label="Tocar o vídeo" data-reel-botao>
+            <svg class="ico reel__play"><use href="#i-play"/></svg>
+            <svg class="ico reel__pausa"><use href="#i-pause"/></svg>
+          </button>
+        </div>
+        <figcaption class="resultados__legenda">Leve e solto</figcaption>
+      </figure>
+
+      <figure class="reel" data-reel>
+        <div class="reel__quadro">
+          <video class="reel__video" src="assets/video/leveza-2.mp4" poster="assets/img/leveza-2.webp" width="540" height="960" muted loop playsinline preload="none" aria-label="Vídeo: cliente de costas balançando o cabelo comprido, liso e acobreado"></video>
+          <span class="ad__selo reel__selo">Vídeo</span>
+          <button class="reel__botao" type="button" aria-label="Tocar o vídeo" data-reel-botao>
+            <svg class="ico reel__play"><use href="#i-play"/></svg>
+            <svg class="ico reel__pausa"><use href="#i-pause"/></svg>
+          </button>
+        </div>
+        <figcaption class="resultados__legenda">Comprido e com movimento</figcaption>
+      </figure>
+    </div>
+
+    <p class="resultados__aviso">Resultados variam de pessoa para pessoa.</p>
   </div>
 </section>
 
@@ -490,6 +566,38 @@
       </article>
     </div>
     <p class="fb-dica" aria-hidden="true"><svg class="ico"><use href="#i-arrow-right"/></svg> arraste pro lado</p>
+  </div>
+</section>
+
+<!-- ============================ INSTAGRAM: leque ============================
+     Mesmo componente do Caldas Coelho, Rancho Canaã, GeP e Realce: prints de
+     resultado do perfil dela em leque, que abrem quando a seção aparece. Sete no
+     computador; abaixo de 1040 px os das pontas (--ponta) somem e ficam cinco. No
+     celular o leque só encolhe, nunca vira carrossel. Trocar um print é
+     sobrescrever o .webp de mesmo nome (preparar-resultados.js) e ajustar o alt. -->
+<section class="insta secao" id="instagram" aria-labelledby="insta-titulo">
+  <div class="wrap">
+    <header class="cabeca">
+      <p class="kicker">No Instagram</p>
+      <h2 id="insta-titulo">Tem muito mais <span class="script">no meu perfil.</span></h2>
+      <p class="cabeca__sub">Resultados de clientes, vídeos dos atendimentos e o dia a dia do studio.</p>
+    </header>
+
+    <div class="insta__leque" data-leque>
+      <a class="insta__item insta__item--ponta" style="--i:-3;--dy:26;--r:-6deg;--n:.8;z-index:5" href="https://www.instagram.com/byancasttephany__/" target="_blank" rel="noopener"><img src="assets/img/insta-cliente-7.webp" alt="Resultado de cliente no Instagram: cabelo castanho na altura dos ombros, com ondas nas pontas" width="540" height="720" loading="lazy" decoding="async"></a>
+      <a class="insta__item" style="--i:-2;--dy:18;--r:-4deg;--n:.86;z-index:10" href="https://www.instagram.com/byancasttephany__/" target="_blank" rel="noopener"><img src="assets/img/insta-cliente-2.webp" alt="Resultado de cliente no Instagram: cabelo preto comprido, liso e com brilho" width="540" height="720" loading="lazy" decoding="async"></a>
+      <a class="insta__item" style="--i:-1;--dy:38;--r:-2deg;--n:.94;z-index:20" href="https://www.instagram.com/byancasttephany__/" target="_blank" rel="noopener"><img src="assets/img/insta-cliente-6.webp" alt="Resultado de cliente no Instagram: uma mão segurando um cabelo castanho liso, com mechas" width="540" height="720" loading="lazy" decoding="async"></a>
+      <a class="insta__item" style="--i:0;--dy:4;--r:0deg;--n:1;z-index:40" href="https://www.instagram.com/byancasttephany__/" target="_blank" rel="noopener"><img src="assets/img/insta-cliente-8.webp" alt="Resultado de cliente no Instagram: cabelo acobreado bem comprido, liso e brilhante" width="540" height="720" loading="lazy" decoding="async"></a>
+      <a class="insta__item" style="--i:1;--dy:30;--r:2deg;--n:.94;z-index:20" href="https://www.instagram.com/byancasttephany__/" target="_blank" rel="noopener"><img src="assets/img/insta-cliente-1.webp" alt="Resultado de cliente no Instagram: uma mão segurando um cabelo castanho escuro, liso e alinhado" width="540" height="720" loading="lazy" decoding="async"></a>
+      <a class="insta__item" style="--i:2;--dy:12;--r:4deg;--n:.86;z-index:10" href="https://www.instagram.com/byancasttephany__/" target="_blank" rel="noopener"><img src="assets/img/insta-cliente-4.webp" alt="Resultado de cliente no Instagram: corte reto na altura dos ombros, preto e liso" width="540" height="720" loading="lazy" decoding="async"></a>
+      <a class="insta__item insta__item--ponta" style="--i:3;--dy:28;--r:6deg;--n:.8;z-index:5" href="https://www.instagram.com/byancasttephany__/" target="_blank" rel="noopener"><img src="assets/img/insta-cliente-3.webp" alt="Resultado de cliente no Instagram: cabelo castanho iluminado, com cachos largos nas pontas" width="540" height="720" loading="lazy" decoding="async"></a>
+    </div>
+
+    <div class="insta__cta">
+      <a class="btn btn--vazado" href="https://www.instagram.com/byancasttephany__/" target="_blank" rel="noopener">
+        <svg class="ico"><use href="#i-instagram"/></svg> @byancasttephany__
+      </a>
+    </div>
   </div>
 </section>
 
