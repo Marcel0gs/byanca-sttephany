@@ -548,7 +548,9 @@
       const bairro = m.querySelector("[data-bairro-input]");
 
       const mensagem = () => {
-        let t = "Oi, Byanca! 💖 Vim pelo site";
+        // ⚠️ SEM EMOJI (16/10/2026): o 💖 chegava como "�" no WhatsApp. O wa.me
+        // redireciona e perde os emojis de 4 bytes no caminho; o site mandava certo
+        let t = "Oi, Byanca! Vim pelo site";
         if (estado.servico === "duvida") t += " e ainda não sei qual procedimento fazer. Pode me ajudar a escolher?";
         else if (estado.servico) t += " e queria agendar " + SERVICO[estado.servico] + ".";
         else t += " e queria agendar um horário.";
