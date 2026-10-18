@@ -366,7 +366,7 @@ button{font:inherit;color:inherit}
     </div>
     <!-- horario da ficha do Google (17/10/2026). A linha de hoje acende pelo script -->
     <div class="cartao">
-      <div class="cartao__cab"><svg class="i" aria-hidden="true"><use href="#i-relogio"/></svg>Horário, sempre com hora marcada</div>
+      <div class="cartao__cab"><svg class="i" aria-hidden="true"><use href="#i-relogio"/></svg>Horário</div>
       <dl class="horas" data-horas>
         <dt data-dia="1">Segunda</dt><dd data-dia="1">13h às 18h</dd>
         <dt data-dia="2,3,4,5">Terça a sexta</dt><dd data-dia="2,3,4,5">7h às 19h</dd>
@@ -411,7 +411,7 @@ button{font:inherit;color:inherit}
   function toca(v){ var p = v.play(); if (p && p.catch) p.catch(function(){}); }
 
   /* 1. atende agora ou quando, no fuso de Itabira, e o dia de hoje no horario.
-     Ela atende com hora marcada: o texto fala "atende", nunca "aberto" */
+     O texto fala "atende", nunca "aberto": o studio e na casa dela */
   var H = {1:[13,18], 2:[7,19], 3:[7,19], 4:[7,19], 5:[7,19], 6:[9,17]};
   var NOMES = ["domingo","segunda","terça","quarta","quinta","sexta","sábado"];
   var agora;
