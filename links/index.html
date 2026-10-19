@@ -286,7 +286,7 @@ button{font:inherit;color:inherit}
     <p class="bio">Escovas, selagem e tratamentos capilares.</p>
     <div class="chips">
       <span class="chip"><svg class="i" aria-hidden="true"><use href="#i-casa"/></svg>Studio e domicílio</span>
-      <span class="chip status" data-status aria-live="polite"></span>
+      <span class="chip status status--aberto">Horários flexíveis</span>
     </div>
   </header>
 
@@ -364,15 +364,11 @@ button{font:inherit;color:inherit}
       <div class="cartao__cab"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>No meu studio</div>
       <p>Rua Gato, 26, São Cristóvão, Itabira/MG.</p>
     </div>
-    <!-- horario da ficha do Google (17/10/2026). A linha de hoje acende pelo script -->
+    <!-- pedido dela (19/10/2026): "atendo em horarios flexiveis", no lugar do horario da ficha -->
     <div class="cartao">
       <div class="cartao__cab"><svg class="i" aria-hidden="true"><use href="#i-relogio"/></svg>Horário</div>
-      <dl class="horas" data-horas>
-        <dt data-dia="1">Segunda</dt><dd data-dia="1">13h às 18h</dd>
-        <dt data-dia="2,3,4,5">Terça a sexta</dt><dd data-dia="2,3,4,5">7h às 19h</dd>
-        <dt data-dia="6">Sábado</dt><dd data-dia="6">9h às 17h</dd>
-        <dt data-dia="0">Domingo</dt><dd data-dia="0">Fechado</dd>
-      </dl>
+      <p>Atendo em horários flexíveis.</p>
+      <p class="taxa">Combine o melhor horário pra você pelo WhatsApp.</p>
     </div>
     <div class="cartao">
       <div class="cartao__cab"><svg class="i" aria-hidden="true"><use href="#i-tesoura"/></svg>Serviços</div>
@@ -410,28 +406,8 @@ button{font:inherit;color:inherit}
   var anima = !reduzido && !economia;
   function toca(v){ var p = v.play(); if (p && p.catch) p.catch(function(){}); }
 
-  /* 1. atende agora ou quando, no fuso de Itabira, e o dia de hoje no horario.
-     O texto fala "atende", nunca "aberto": o studio e na casa dela */
-  var H = {1:[13,18], 2:[7,19], 3:[7,19], 4:[7,19], 5:[7,19], 6:[9,17]};
-  var NOMES = ["domingo","segunda","terça","quarta","quinta","sexta","sábado"];
-  var agora;
-  try {
-    var p = {};
-    new Intl.DateTimeFormat("en-US", {timeZone:"America/Sao_Paulo", weekday:"short", hour:"numeric", minute:"numeric", hour12:false})
-      .formatToParts(new Date()).forEach(function(x){ p[x.type] = x.value; });
-    agora = { d: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(p.weekday), h: (parseInt(p.hour,10) % 24) + parseInt(p.minute,10) / 60 };
-  } catch (e) { var n = new Date(); agora = { d: n.getDay(), h: n.getHours() + n.getMinutes() / 60 }; }
-  var st = document.querySelector("[data-status]");
-  if (st && agora.d >= 0) {
-    var hoje = H[agora.d], txt;
-    if (hoje && agora.h >= hoje[0] && agora.h < hoje[1]) { txt = "Atende hoje até " + hoje[1] + "h"; st.classList.add("status--aberto"); }
-    else if (hoje && agora.h < hoje[0]) txt = "Atende hoje a partir das " + hoje[0] + "h";
-    else for (var i = 1; i <= 7; i++) { var dd = (agora.d + i) % 7; if (H[dd]) { txt = "Atende " + (i === 1 ? "amanhã" : NOMES[dd]) + " a partir das " + H[dd][0] + "h"; break; } }
-    st.textContent = txt;
-  }
-  Array.prototype.forEach.call(document.querySelectorAll("[data-horas] [data-dia]"), function(el){
-    if (el.getAttribute("data-dia").split(",").indexOf(String(agora.d)) >= 0) el.classList.add("hoje");
-  });
+  /* 1. horario: ela atende em horarios flexiveis (19/10/2026), entao o chip do topo
+     e fixo no HTML e nao ha mais calculo de aberto ou fechado */
 
   /* 2. faiscas no toque, no topo e nos botoes (como as da Joyce, em rosa) */
   var estrela = '<svg viewBox="0 0 24 24"><path d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z"/></svg>';
