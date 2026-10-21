@@ -170,6 +170,14 @@ button, input { font: inherit; color: inherit; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: 6; pointer-events: none; background: var(--escuro); opacity: calc(var(--cobre, 0) * .55); }
 main { overflow-x: clip; }
 :where(main > section:not(.hero)) { position: relative; z-index: 1; background-color: var(--fundo); }
+/* Na tela de toque cada secao vira camada propria, recortada na propria
+   caixa e de fundo solido: o navegador a trata como opaca, e bloco ainda nao
+   pintado sai na cor da secao em vez de mostrar o hero travado por tras (o
+   "espaco vazio" ao rolar logo na primeira abertura, 21/10/2026). A faixa fica
+   fora: canto redondo e sombra nao sao opacos. */
+@media (hover:none){
+  main > section:not(.hero):not(.faixa){will-change:transform;overflow:clip}
+}
 
 /* a foto é quadrada e ela está no meio: fica na direita, e respira devagar
    (scale, não transform) */
